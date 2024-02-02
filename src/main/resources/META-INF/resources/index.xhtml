@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition
+        xmlns:ui="jakarta.faces.facelets"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:pe="http://primefaces.org/ui/extensions"
+        xmlns:sec="https://joinfaces.org/security"
+        template="/template.xhtml">
+    <ui:define name="content" >
+        <p:spacer height="10" />
+        <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <p:panelGrid columns="1" rendered="#{sec:isFullyAuthenticated()}" layout="grid">
+                <p:link title="Logout" href="/logout">
+                    <p:outputLabel id="labelRoleAdmin" value="Choose your starter as an ADMIN" />
+                </p:link>
+            </p:panelGrid>
+        </sec:authorize>
+        <sec:authorize ifAnyGranted="ROLE_USER">
+            <p:panelGrid columns="1" rendered="#{sec:isAuthenticated()}" layout="grid">
+                <p:link title="Logout" href="/logout">
+                    <p:outputLabel id="labelRoleUser" value="Choose your starter as a regular user" />
+                </p:link>
+            </p:panelGrid>
+        </sec:authorize>
+        <sec:anonymous>
+            <p:panelGrid columns="1" layout="grid">
+                <p:link title="Login" href="/login.faces">
+                    <p:outputLabel id="labelAnonymous" value="Choose your starter as anonymous user" />
+                </p:link>
+            </p:panelGrid>
+        </sec:anonymous>
+        <p:spacer height="10" />
+
+        <p:tabView id="tabView">
+            <p:tab title="Add to your pom.xml" id="tabPom" >        
+                <p:panel id="panelPom" header="Add to your pom.xml" >
+                    <pe:codeMirror id="codeMirrorPom" mode="xml" theme="blackboard" lineNumbers="true" value="" />
+                </p:panel>
+            </p:tab>
+        </p:tabView>
+    </ui:define>
+</ui:composition>
