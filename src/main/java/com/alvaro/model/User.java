@@ -1,11 +1,13 @@
 package com.alvaro.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,11 +31,25 @@ public class User implements UserDetails, Serializable {
     private String name;
     private String passwd;
     private String photoURL;
-    @OneToMany
-    private List<PlayList> subsPlaylists;
+    @JoinTable(name = "subscriptions",
+            joinColumns = @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "playlist_id", nullable = false, referencedColumnName = "id"))
     @ManyToMany
+    private List<PlayList> subsPlaylists;
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", nullable = false, referencedColumnName = "id"))
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<SPAuthority> authorities;
     private boolean disabled;
+
+    public User(final String name, final String passwd, final String photoURL, final List<SPAuthority> authorities, final boolean disabled) {
+        this.name = name;
+        this.passwd = passwd;
+        this.photoURL = photoURL;
+        this.authorities = authorities;
+        this.disabled = disabled;
+    }
 
     public User(){
 
@@ -56,17 +72,17 @@ public class User implements UserDetails, Serializable {
 
     @Override
     public boolean isAccountNonExpired() {
-        return this.disabled;
+        return !this.disabled;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return this.disabled;
+        return !this.disabled;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return this.disabled;
+        return !this.disabled;
     }
 
     @Override

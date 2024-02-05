@@ -3,6 +3,8 @@
 <ui:composition
         xmlns:ui="jakarta.faces.facelets"
         xmlns:p="http://primefaces.org/ui"
+        xmlns:h="jakarta.faces.html"
+        xmlns:f="jakarta.faces.core"
         xmlns:pe="http://primefaces.org/ui/extensions"
         xmlns:sec="https://joinfaces.org/security"
         template="/template.xhtml">
@@ -32,10 +34,27 @@
         <p:spacer height="10" />
 
         <p:tabView id="tabView">
-            <p:tab title="Add to your pom.xml" id="tabPom" >        
-                <p:panel id="panelPom" header="Add to your pom.xml" >
-                    <pe:codeMirror id="codeMirrorPom" mode="xml" theme="blackboard" lineNumbers="true" value="" />
-                </p:panel>
+            <p:tab title="Add to your pom.xml" id="tabPom" >
+                <h:form prependId="false">
+                    <div id="mainDiv" class="ui-fluid center">
+                        <p:panelGrid columns="1" layout="grid">
+                            <p:outputLabel value="Connection failed: user and/or password are wrong." rendered="${!empty param['error']}"/>
+                        </p:panelGrid>
+                        <p:focus/>
+                        <p:panelGrid columns="2" layout="grid">
+                            <h:outputText value="username"/>
+                            <p:inputText value="#{loginBean.user.name}">
+                                <f:validateLength minimum="5" maximum="16"/>
+                                <p:clientValidator/>
+                            </p:inputText>
+                            <h:outputText value="password"/>
+                            <p:password id="password" value="#{loginBean.user.passwd}">
+                                <p:clientValidator/>
+                            </p:password>
+                        </p:panelGrid>
+                        <p:commandButton value="Login" ajax="false" action="#{loginBean.login()}"/>
+                    </div>
+                </h:form>
             </p:tab>
         </p:tabView>
     </ui:define>

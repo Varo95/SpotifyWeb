@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html lang="es"
-      xmlns:h="jakarta.faces.html"
-      xmlns:f="jakarta.faces.core"
-      xmlns:p="http://primefaces.org/ui"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="es" xmlns:h="jakarta.faces.html" xmlns:f="jakarta.faces.core" xmlns:p="http://primefaces.org/ui"
       xmlns:pe="http://primefaces.org/ui/extensions">
 
 <f:view contentType="text/html">
@@ -16,25 +12,47 @@
     </h:head>
 
     <h:body>
-        <pe:layout fullPage="true">
-            <pe:layoutPane id="mainLayoutPane" position="center">
-                <h:form prependId="false">
+        <p:tabView id="tabView">
+            <p:tab title="Login" id="tabPom">
+                <p:panel id="panelLogin" header="Login to Spotify App">
                     <div id="mainDiv" class="ui-fluid center">
-                        <p:panelGrid columns="1" layout="grid">
-                            <p:outputLabel value="Connection failed: user and/or password are wrong." rendered="${!empty param['error']}"/>
-                        </p:panelGrid>
-                        <p:focus/>
+                        <h:form prependId="false">
+                            <p:panelGrid columns="1" layout="grid">
+                                <p:outputLabel value="Connection failed: user and/or password are wrong." rendered="${!empty param['error']}"/>
+                            </p:panelGrid>
+                            <p:focus />
+                            <p:panelGrid columns="2" layout="grid">
+                                <h:outputText value="username" />
+                                <p:inputText id="name" name="name"/>
+                                <h:outputText value="password" />
+                                <p:password id="passwd" name="passwd"/>
+                            </p:panelGrid>
+                            <p:commandButton id="submit" value="Login" ajax="false" />
+                        </h:form>
+                    </div>
+                </p:panel>
+            </p:tab>
+            <p:tab title="Register">
+                <p:panel id="panelRegister" header="Register to Spotify App">
+                    <h:form prependId="false">
+                        <div id="secondDiv" class="ui-fluid center">
                         <p:panelGrid columns="2" layout="grid">
                             <h:outputText value="username"/>
-                            <p:inputText id="username"/>
+                            <p:inputText value="#{loginBean.user.name}">
+                                <f:validateLength minimum="5" maximum="16"/>
+                                <p:clientValidator/>
+                            </p:inputText>
                             <h:outputText value="password"/>
-                            <p:password id="password"/>
+                            <p:password id="passwordRegister" value="#{loginBean.user.passwd}">
+                                <p:clientValidator/>
+                            </p:password>
                         </p:panelGrid>
-                        <p:commandButton id="submit" value="Login" ajax="false"/>
-                    </div>
-                </h:form>
-            </pe:layoutPane>
-        </pe:layout>
+                        <p:commandButton type="submit" value="Register" ajax="false" action="#{loginBean.register()}"/>
+                        </div>
+                    </h:form>
+                </p:panel>
+            </p:tab>
+        </p:tabView>
     </h:body>
 </f:view>
 </html>

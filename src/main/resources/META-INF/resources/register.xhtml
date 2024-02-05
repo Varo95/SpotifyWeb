@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="es" xmlns:h="jakarta.faces.html" xmlns:f="jakarta.faces.core" xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+<f:view contentType="text/html">
+    <h:head>
+        <title>.:: Spotify Web App Login ::.</title>
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+        <link href="#{resource['images/favicon.ico']}" rel="shortcut icon"/>
+        <h:outputStylesheet library="css" name="main.css"/>
+    </h:head>
+
+    <h:body>
+        <p:tabView id="tabView">
+            <p:tab title="Register">
+                <p:panel id="panelRegister" header="Register to Spotify App">
+                    <h:form prependId="false">
+                        <div id="secondDiv" class="ui-fluid center">
+                            <p:panelGrid columns="2" layout="grid">
+                                <h:outputText value="username"/>
+                                <p:inputText value="#{registerBean.user.name}">
+                                    <f:validateLength minimum="5" maximum="16"/>
+                                    <p:clientValidator/>
+                                </p:inputText>
+                                <h:outputText value="password"/>
+                                <p:password id="passwordRegister" value="#{registerBean.user.passwd}">
+                                    <p:clientValidator/>
+                                </p:password>
+                            </p:panelGrid>
+                            <p:commandButton type="submit" value="Register" ajax="false" action="#{registerBean.register()}"/>
+                        </div>
+                    </h:form>
+                </p:panel>
+            </p:tab>
+        </p:tabView>
+    </h:body>
+</f:view>
+</html>
