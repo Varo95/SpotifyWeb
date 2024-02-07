@@ -1,4 +1,4 @@
-package com.alvaro.model;
+package com.alvaro.model.orm;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -18,6 +18,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+
 @Entity
 @Table(name = "_user")
 @Getter
@@ -37,8 +38,8 @@ public class User implements UserDetails, Serializable {
     @ManyToMany
     private List<PlayList> subsPlaylists;
     @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", nullable = false, referencedColumnName = "id"))
+            joinColumns = {@JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id", nullable = false, referencedColumnName = "id")})
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<SPAuthority> authorities;
     private boolean disabled;
@@ -88,5 +89,10 @@ public class User implements UserDetails, Serializable {
     @Override
     public boolean isEnabled() {
         return !this.disabled;
+    }
+
+    @Override
+    public String toString(){
+        return String.format("User[%d, %s, %s]", this.id, this.name, this.disabled ? "disabled" : "enabled");
     }
 }

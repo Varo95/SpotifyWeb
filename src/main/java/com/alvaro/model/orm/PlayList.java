@@ -1,4 +1,4 @@
-package com.alvaro.model;
+package com.alvaro.model.orm;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

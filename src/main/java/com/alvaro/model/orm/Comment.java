@@ -1,38 +1,36 @@
-package com.alvaro.model;
+package com.alvaro.model.orm;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.List;
+import java.time.LocalDateTime;
 @Entity
-@Table(name = "disks")
+@Table(name = "comments")
 @Getter
 @Setter
-public class Disk implements Serializable {
+public class Comment implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String name;
-    private LocalDate publicationDate;
-    private String photoURL;
+    @OneToOne
+    private User user;
+    private LocalDateTime time;
+    private String comment;
     @ManyToOne
-    private Artist artist;
-    @OneToMany(mappedBy = "disk")
-    private List<Song> songs;
+    private PlayList playList;
 
-    public Disk(){
+    public Comment(){
 
     }
 }

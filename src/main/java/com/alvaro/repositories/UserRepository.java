@@ -1,6 +1,6 @@
 package com.alvaro.repositories;
 
-import com.alvaro.model.User;
+import com.alvaro.model.orm.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
