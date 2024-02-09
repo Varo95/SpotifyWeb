@@ -14,3 +14,15 @@
 .center {
   text-align: center;
 }
+
+.logo {
+  background-image: url("#{resource['images/icon.png']}") !important;
+  width: 26px;
+  height: 26px;
+  background-position: 0 0;
+}
+.logoButton{
+  background: transparent !important;
+  border: none !important;
+  margin: 0;
+}

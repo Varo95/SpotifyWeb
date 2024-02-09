@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +22,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "_user")
+@NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.name = ?1")
+@NamedQuery(name = "User.findByName.count", query = "SELECT COUNT(u) FROM User u WHERE u.name = ?1")
 @Getter
 @Setter
 public class User implements UserDetails, Serializable {

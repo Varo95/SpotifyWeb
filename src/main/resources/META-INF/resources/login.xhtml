@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html lang="es" xmlns:h="jakarta.faces.html" xmlns:f="jakarta.faces.core" xmlns:p="http://primefaces.org/ui"
-      xmlns:pe="http://primefaces.org/ui/extensions">
+<html lang="es" xmlns:h="jakarta.faces.html" xmlns:f="jakarta.faces.core" xmlns:p="http://primefaces.org/ui">
 
 <f:view contentType="text/html">
     <h:head>
-        <title>.:: Spotify Web App Login ::.</title>
+        <title>${sms.get('generic.title')}</title>
         <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-        <link href="#{resource['images/favicon.ico']}" rel="shortcut icon"/>
+        <link href="#{resource['images/icon.png']}" rel="shortcut icon"/>
         <h:outputStylesheet library="css" name="main.css"/>
     </h:head>
     <h:body>
-        <p:tabView id="tabView">
-            <p:tab title="Login" id="tabPom">
-                <p:panel id="panelLogin" header="Login to Spotify App">
-                    <div id="mainDiv" class="ui-fluid center">
-                        <h:form prependId="false">
-                            <p:panelGrid columns="1" layout="grid">
-                                <p:outputLabel value="Connection failed: user and/or password are wrong." rendered="${!empty param['error']}"/>
-                            </p:panelGrid>
-                            <p:focus />
-                            <p:panelGrid columns="2" layout="grid">
-                                <h:outputText value="username" />
-                                <p:inputText id="name" name="name"/>
-                                <h:outputText value="password" />
-                                <p:password id="passwd" name="passwd"/>
-                            </p:panelGrid>
-                            <p:commandButton id="submit" value="Login" ajax="false" />
-                        </h:form>
-                        <span>Not registered yet? <p:linkButton id="register" value="Register" ajax="false" href="register.faces"/></span>
-                    </div>
-                </p:panel>
-            </p:tab>
-        </p:tabView>
+        <p:panelGrid columns="1">
+            <f:facet name="header">
+                <p:graphicImage value="#{resource['images/icon.png']}" />
+            </f:facet>
+        </p:panelGrid>
+        <p:panel style="max-width: 400px; margin: 0 auto" id="panelLogin" header="${sms.get('login.title')}">
+            <div id="mainDiv" class="ui-fluid center">
+                <h:form prependId="false">
+                    <p:panelGrid columns="1" layout="grid">
+                        <p:outputLabel value="${sms.get('login.error')}" rendered="${!empty param['error']}"/>
+                    </p:panelGrid>
+                    <p:focus />
+                    <p:panelGrid columns="2" layout="grid">
+                        <h:outputText value="${sms.get('generic.username')}" />
+                        <p:inputText id="name" name="name"/>
+                        <h:outputText value="${sms.get('generic.password')}" />
+                        <p:password id="passwd" name="passwd"/>
+                    </p:panelGrid>
+                    <p:commandButton id="submit" value="${sms.get('login.submit')}" ajax="false" icon="pi pi-sign-in" iconPos="right"/>
+                </h:form>
+                <span>${sms.get('login.notregistered')} <p:linkButton id="register" value="${sms.get('register.submit')}" ajax="false" href="register.faces"/></span>
+            </div>
+        </p:panel>
     </h:body>
 </f:view>
 </html>

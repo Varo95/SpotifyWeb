@@ -4,43 +4,37 @@
       
       xmlns:h="jakarta.faces.html"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:f="jakarta.faces.core"
       xmlns:pe="http://primefaces.org/ui/extensions"
-      xmlns:ui="jakarta.faces.facelets">
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:sec="https://joinfaces.org/security">
 
     <h:head>
-        <title>.:: JoinFaces Example ::.</title>
+        <title>${sms.get('generic.title')}</title>
         <meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
-        <link href="#{resource['images/favicon.ico']}" rel="shortcut icon"/>
+        <link href="#{resource['images/icon.png']}" rel="shortcut icon"/>
         <h:outputStylesheet library="css" name="main.css" />
         <h:outputScript library="js" name="main.js" />
     </h:head>
 
     <h:body>
-        <pe:layout fullPage="true" >
-            <pe:layoutPane id="mainLayoutPane" position="center">
-                <h:form id="contentForm" prependId="false" enctype="multipart/form-data">
-                    <p:ajaxStatus onstart="PF('statusDialog').show();"
-                                  onsuccess="PF('statusDialog').hide();" />
-                    <p:dialog widgetVar="statusDialog" position="right top"
-                              draggable="false" resizable="false" closable="false"
-                              showHeader="false" modal="false">
-                        <p:graphicImage value="#{resource['images/ajaxloading.gif']}" />
-                    </p:dialog>
-                    <div id="mainDiv" class="ui-fluid center">
-                        <p:menubar>
-                            <p:menuitem value="Starter" url="/index.faces" />
-                            <p:menuitem value="File Upload" url="fileUpload.faces" />
-                            <p:menuitem value="Custom Input" url="customInput.faces" />
-                            <p:menuitem value="My Tag" url="helloTag.faces" />
-                            <p:menuitem value="Hi CC" url="hiCC.faces" />
-                            <p:menuitem value="Welcome Converter" url="welcomeConverter.faces" />
-                        </p:menubar>
-
-                        <p:spacer height="10" />
-
-                        <ui:insert name="content" />
-                    </div>
-                </h:form>
+        <pe:layout>
+            <pe:layoutPane id="mainLayoutPane" position="west">
+                <div id="mainDiv" class="ui-fluid right">
+                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+                        <p:tieredMenu>
+                            <p:menuitem icon="logo" styleClass="logoButton" value="${sms.get('app.name')}" url="/index.faces" />
+                            <p:menuitem value="${sms.get('menu.home')}" url="/index.faces" />
+                            <p:menuitem value="${sms.get('menu.search')}" url="customInput.faces" />
+                            <p:divider/>
+                            <p:menuitem value="${sms.get('menu.yourLibrary')}" url="helloTag.faces" />
+                            <!-- TODO include table with user subscripted playlists -->
+                        </p:tieredMenu>
+                    </sec:authorize>
+                </div>
+            </pe:layoutPane>
+            <pe:layoutPane position="center">
+                <ui:insert name="content" />
             </pe:layoutPane>
         </pe:layout>
     </h:body>
