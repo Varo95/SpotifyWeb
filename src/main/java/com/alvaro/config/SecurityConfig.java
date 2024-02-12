@@ -48,6 +48,8 @@ public class SecurityConfig extends HttpConfigurationProvider {
                         .requestMatchers(new AntPathRequestMatcher("/login.faces")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/register.faces")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/jakarta.faces.resource/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/fonts/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/images/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/**.faces")).hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
                         .anyRequest().authenticated())
                 .formLogin(formLogin -> formLogin

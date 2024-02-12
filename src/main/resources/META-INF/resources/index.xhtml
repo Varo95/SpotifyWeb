@@ -1,61 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition
-        xmlns:ui="jakarta.faces.facelets"
-        xmlns:p="http://primefaces.org/ui"
-        xmlns:h="jakarta.faces.html"
-        xmlns:f="jakarta.faces.core"
-        xmlns:pe="http://primefaces.org/ui/extensions"
-        xmlns:sec="https://joinfaces.org/security"
-        template="/template.xhtml">
-    <ui:define name="content" >
-        <p:spacer height="10" />
-        <sec:authorize access="hasRole('ROLE_ADMIN')">
-            <p:panelGrid columns="1" rendered="#{sec:isFullyAuthenticated()}" layout="grid">
-                <p:link title="Logout" href="/logout">
-                    <p:outputLabel id="labelRoleAdmin" value="Choose your starter as an ADMIN" />
-                </p:link>
-            </p:panelGrid>
-        </sec:authorize>
-        <sec:authorize ifAnyGranted="ROLE_USER">
-            <p:panelGrid columns="1" rendered="#{sec:isAuthenticated()}" layout="grid">
-                <p:link title="Logout" href="/logout">
-                    <p:outputLabel id="labelRoleUser" value="Choose your starter as a regular user" />
-                </p:link>
-            </p:panelGrid>
-        </sec:authorize>
-        <sec:anonymous>
-            <p:panelGrid columns="1" layout="grid">
-                <p:link title="Login" href="/login.faces">
-                    <p:outputLabel id="labelAnonymous" value="Choose your starter as anonymous user" />
-                </p:link>
-            </p:panelGrid>
-        </sec:anonymous>
-        <p:spacer height="10" />
+<html lang="es">
+    <ui:composition
+            xmlns:ui="jakarta.faces.facelets"
+            xmlns:p="http://primefaces.org/ui"
+            xmlns:h="jakarta.faces.html"
+            xmlns:f="jakarta.faces.core"
+            xmlns:pe="http://primefaces.org/ui/extensions"
+            xmlns:sec="https://joinfaces.org/security"
+            template="/template.xhtml">
+        <ui:define name="content" >
+            <h:form class="content-form">
+                <p:tabView id="tabView">
+                    <p:tab title="#{sms.get('main.allArtists')}" >
+                        <p:dataTable id="tableStateDT" var="artist" value="#{mainBean.allArtists}"
+                                     widgetVar="artistTable" multiViewState="true" rows="10" paginator="true"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     paginatorPosition="bottom" currentPageReportTemplate="{totalRecords} artistas encontrados"
+                                     rowsPerPageTemplate="5,10,15" selectionMode="single"
+                                     selection="#{mainBean.selectedArtist}" rowKey="#{artist.id}"
+                                     emptyMessage="No artists found with given criteria"
+                                     filteredValue="#{mainBean.filteredArtists}">
 
-        <p:tabView id="tabView">
-            <p:tab title="Add to your pom.xml" id="tabPom" >
-                <h:form prependId="false">
-                    <div id="mainDiv" class="ui-fluid center">
-                        <p:panelGrid columns="1" layout="grid">
-                            <p:outputLabel value="Connection failed: user and/or password are wrong." rendered="${!empty param['error']}"/>
-                        </p:panelGrid>
-                        <p:focus/>
-                        <p:panelGrid columns="2" layout="grid">
-                            <h:outputText value="username"/>
-                            <p:inputText value="#{loginBean.user.name}">
-                                <f:validateLength minimum="5" maximum="16"/>
-                                <p:clientValidator/>
-                            </p:inputText>
-                            <h:outputText value="password"/>
-                            <p:password id="password" value="#{loginBean.user.passwd}">
-                                <p:clientValidator/>
-                            </p:password>
-                        </p:panelGrid>
-                        <p:commandButton value="Login" ajax="false" action="#{loginBean.login()}"/>
-                    </div>
-                </h:form>
-            </p:tab>
-        </p:tabView>
-    </ui:define>
-</ui:composition>
+                            <!--<p:ajax event="rowSelect" update=":form:customerDetail" oncomplete="PF('customerDialog').show()"/>-->
+
+                            <p:column headerText="Name" filterBy="#{artist.name}" sortBy="#{artist.name}"
+                                      filterMatchMode="contains">
+                                <h:outputText value="#{artist.name}"/>
+                            </p:column>
+
+                            <p:column headerText="Country" filterBy="#{artist.nationality}" sortBy="#{artist.id}"
+                                      filterMatchMode="startsWith">
+                                <span class="flag flag-#{artist.nationality}"/>
+                                <h:outputText style="vertical-align: middle; margin-left: .5rem" value="#{artist.nationality}"/>
+                            </p:column>
+
+
+                            <f:facet name="paginatorTopLeft">
+                                <p:commandButton value="Clear table state" action="#{mainBean.clearMultiViewState}"
+                                                 update="@form"/>
+                            </f:facet>
+                        </p:dataTable>
+                    </p:tab>
+                    <p:tab title="#{sms.get('main.allPlayLists')}" >
+
+                    </p:tab>
+                </p:tabView>
+                <p:menuButton icon="pi pi-user">
+                    <p:menuitem value="Cuenta"/>
+                    <p:menuitem value="Cerrar sesión"/>
+                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+                        <p:menuitem value="Administrar"/>
+                    </sec:authorize>
+                </p:menuButton>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

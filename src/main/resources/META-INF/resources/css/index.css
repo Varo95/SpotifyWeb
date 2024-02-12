@@ -1,0 +1,7 @@
+.content-form{
+    display: flex;
+    flex-direction: row;
+    button{
+        border-radius: 14px;
+    }
+}

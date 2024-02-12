@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:sec="https://joinfaces.org/security">
+    <p:panelGrid columns="3" columnClasses="ui-g-2 ui-md-1,ui-g-6 ui-md-6,ui-g-4 ui-md-1">
+        <p:graphicImage style="height: 50px" styleClass="logoButton" value="#{resource['images/disc_default.png']}" />
+        <div>
+            <div>
+                <p:commandButton form="hiddenForm" type="button" icon="pi pi-chevron-left" styleClass="rounded-button" />
+                <p:commandButton form="hiddenForm" type="button" icon="pi pi-play" styleClass="rounded-button" />
+                <p:commandButton form="hiddenForm" type="button" icon="pi pi-chevron-right" styleClass="rounded-button" />
+                <p:badge id="repeat" severity="info" visible="#{musicPlayerBean.replay}">
+                    <p:commandButton form="hiddenForm" icon="pi pi-replay" update="repeat" styleClass="rounded-button" action="#{musicPlayerBean.setReplay()}" />
+                </p:badge>
+            </div>
+            <h:outputText id="timeLine" value="Set playTime to %#{musicPlayerBean.playTime}"/>
+            <p:slider style="width: 200px" for="timeLineInput" range="false" display="timeLine" displayTemplate="Set playTime to %{value}"/>
+        </div>
+        <div>
+            <h:outputText id="volume" value="Set volume to %#{musicPlayerBean.volume}"/>
+            <p:slider style="width: 200px" for="volumeInput" range="false" display="volume" displayTemplate="Set volume to %{value}"/>
+        </div>
+    </p:panelGrid>
+    <h:form id="hiddenForm" style="display: none"/>
+    <h:inputHidden style="display: none" id="timeLineInput" value="#{musicPlayerBean.playTime}"/>
+    <h:inputHidden id="volumeInput" value="#{musicPlayerBean.volume}"/>
+</ui:composition>

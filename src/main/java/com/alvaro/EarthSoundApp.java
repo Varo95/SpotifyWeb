@@ -5,12 +5,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
-public class SpotifyApp {
+public class EarthSoundApp {
 
     private static ConfigurableApplicationContext context;
 
     public static void main(final String[] args) {
-        context = SpringApplication.run(SpotifyApp.class, args);
+        context = SpringApplication.run(EarthSoundApp.class, args);
     }
 
 }

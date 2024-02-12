@@ -1,4 +1,4 @@
-# ¡Spotify App!
+# ¡EarthSound Web App!
 (WIP)
 ## Description
 This will be a server+frontend app similar to Spotify, where you can listen to music, create playlist, comment on songs and playlists.

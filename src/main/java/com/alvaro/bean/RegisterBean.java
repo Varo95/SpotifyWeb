@@ -25,9 +25,9 @@ public class RegisterBean implements Serializable {
     private User user;
     @Getter @Setter
     private SPAuthority selectedAuthority;
-    private final transient UserService userService;
     @Getter
     private final List<SPAuthority> authorities;
+    private final transient UserService userService;
     @Autowired
     public RegisterBean(final UserService userService){
         this.userService = userService;

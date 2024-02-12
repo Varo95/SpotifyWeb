@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -14,6 +15,8 @@ import java.io.Serializable;
 import java.util.List;
 @Entity
 @Table(name = "artists")
+@NamedQuery(name = "Artist.findByName", query = "SELECT a FROM Artist a WHERE a.name LIKE ?1")
+@NamedQuery(name = "Artist.findByName.count", query = "SELECT COUNT(a) FROM Artist a WHERE a.name LIKE ?1")
 @Getter
 @Setter
 public class Artist implements Serializable {

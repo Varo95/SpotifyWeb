@@ -1,33 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html lang="en-us"
-      
+<html lang="es"
       xmlns:h="jakarta.faces.html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="jakarta.faces.core"
       xmlns:pe="http://primefaces.org/ui/extensions"
       xmlns:ui="jakarta.faces.facelets"
       xmlns:sec="https://joinfaces.org/security">
-
     <h:head>
         <title>${sms.get('generic.title')}</title>
         <meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
         <link href="#{resource['images/icon.png']}" rel="shortcut icon"/>
         <h:outputStylesheet library="css" name="main.css" />
+        <h:outputStylesheet library="css" name="flags.css"/>
+        <h:outputStylesheet library="css" name="index.css"/>
         <h:outputScript library="js" name="main.js" />
     </h:head>
-
     <h:body>
         <pe:layout>
             <pe:layoutPane id="mainLayoutPane" position="west">
                 <div id="mainDiv" class="ui-fluid right">
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
                         <p:tieredMenu>
-                            <p:menuitem icon="logo" styleClass="logoButton" value="${sms.get('app.name')}" url="/index.faces" />
-                            <p:menuitem value="${sms.get('menu.home')}" url="/index.faces" />
-                            <p:menuitem value="${sms.get('menu.search')}" url="customInput.faces" />
+                            <p:menuitem icon="pi pi-home" value="${sms.get('menu.home')}" url="/index.faces" />
+                            <p:menuitem icon="pi pi-search" value="${sms.get('menu.search')}" url="/index.faces" />
                             <p:divider/>
-                            <p:menuitem value="${sms.get('menu.yourLibrary')}" url="helloTag.faces" />
+                            <p:menuitem icon="pi pi-list" value="${sms.get('menu.yourLibrary')}" url="/index.faces" />
                             <!-- TODO include table with user subscripted playlists -->
                         </p:tieredMenu>
                     </sec:authorize>
@@ -35,6 +33,9 @@
             </pe:layoutPane>
             <pe:layoutPane position="center">
                 <ui:insert name="content" />
+            </pe:layoutPane>
+            <pe:layoutPane position="south">
+                <ui:include src="musicplayer.xhtml"/>
             </pe:layoutPane>
         </pe:layout>
     </h:body>
