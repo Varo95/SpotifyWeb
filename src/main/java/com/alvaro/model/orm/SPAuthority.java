@@ -10,6 +10,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.util.StringUtils;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -39,6 +40,10 @@ public class SPAuthority implements GrantedAuthority, Serializable {
     @Override
     public String getAuthority() {
         return this.authority;
+    }
+
+    public String toToGUI(){
+        return StringUtils.capitalize(this.authority.replace("ROLE_","").toLowerCase());
     }
 
     @Override

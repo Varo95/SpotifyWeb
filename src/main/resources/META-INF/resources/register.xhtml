@@ -1,46 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html lang="es" xmlns:h="jakarta.faces.html" xmlns:f="jakarta.faces.core" xmlns:p="http://primefaces.org/ui"
-      xmlns:sec="https://joinfaces.org/security">
+<html lang="es" xmlns:h="jakarta.faces.html" xmlns:f="jakarta.faces.core" xmlns:p="http://primefaces.org/ui" xmlns:sec="https://joinfaces.org/security">
 
 <f:view contentType="text/html">
     <h:head>
-        <title>.:: EarthSound Web App Register ::.</title>
+        <title>${sms.get('generic.title')}</title>
         <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-        <link href="#{resource['images/favicon.ico']}" rel="shortcut icon"/>
-        <h:outputStylesheet library="css" name="main.css"/>
+        <link href="#{resource['images/icon.png']}" rel="shortcut icon"/>
+        <h:outputStylesheet library="css" name="login.css"/>
     </h:head>
-
     <h:body>
-        <p:tabView id="tabView">
-            <p:tab title="Register">
-                <p:panel id="panelRegister" header="Register to EarthSound App">
-                    <h:form prependId="false">
-                        <div id="secondDiv" class="ui-fluid center">
-                            <p:panelGrid columns="2" layout="grid">
-                                <h:outputText value="username"/>
-                                <p:inputText value="#{registerBean.user.name}">
-                                    <f:validateLength minimum="5" maximum="16"/>
-                                    <p:clientValidator/>
-                                </p:inputText>
-                                <h:outputText value="password"/>
-                                <p:password id="passwordRegister" value="#{registerBean.user.passwd}">
-                                    <p:clientValidator/>
-                                </p:password>
-                                <sec:authorize access="hasRole('ROLE_ADMIN')">
-                                    <h:outputLabel value="Rol"/>
-                                    <p:selectOneMenu value="#{registerBean.selectedAuthority}" converter="omnifaces.SelectItemsConverter">
-                                        <f:selectItems value="#{registerBean.authorities}" var="authority" itemLabel="#{authority.authority}"/>
-                                    </p:selectOneMenu>
-                                </sec:authorize>
-                            </p:panelGrid>
-                            <p:commandButton type="submit" value="Register" ajax="false" action="#{registerBean.register()}"/>
-                            <span>Already registered? <p:linkButton id="register" value="Login" ajax="false" href="login.faces"/></span>
+        <div class="ui-fluid center main">
+            <div class="login-box">
+                <div class="img-container">
+                    <p:graphicImage height="100" value="#{resource['images/icon.png']}" />
+                </div>
+                <h:form class="w-100" prependId="false">
+                    <div class="form-inputs">
+                        <h4 style="margin-top: 24px">${sms.get('generic.username')}</h4>
+                        <div class="ui-inputgroup">
+                            <div class="ui-inputgroup-addon login-icons"><i class="pi pi-user"/></div>
+                            <p:inputText title="a" id="name" class="input" value="#{registerBean.user.name}"/>
                         </div>
-                    </h:form>
-                </p:panel>
-            </p:tab>
-        </p:tabView>
+                        <h4>${sms.get('generic.password')}</h4>
+                        <div class="ui-inputgroup">
+                            <div class="ui-inputgroup-addon login-icons"><i class="pi pi-lock"/></div>
+                            <p:password title="a" id="passwd" class="input" value="#{registerBean.user.passwd}"/>
+                        </div>
+                    </div>
+                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+                        <h4 style="margin-top: 24px">Rol</h4>
+                        <p:selectOneMenu class="input" value="#{registerBean.selectedAuthority}" converter="omnifaces.SelectItemsConverter">
+                            <f:selectItems value="#{registerBean.authorities}" var="authority" itemLabel="#{authority.toToGUI()}"/>
+                        </p:selectOneMenu>
+                    </sec:authorize>
+                    <div class="error-container">
+                        <p:outputLabel
+                                class="error-msg"
+                                value="${sms.get('login.error')}"
+                                rendered="${!empty param['error']}"
+                        />
+                    </div>
+                    <p:commandButton
+                            id="submit"
+                            class="submit"
+                            value="${sms.get('register.submit')}"
+                            ajax="false"
+                            icon="pi pi-sign-in"
+                            iconPos="right"
+                    />
+                    <p class="register-label">
+                        ${sms.get('register.alreadyRegistered')} <a href="login.faces">${sms.get('login.submit')}</a>
+                    </p>
+                </h:form>
+            </div>
+        </div>
     </h:body>
 </f:view>
 </html>
