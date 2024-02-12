@@ -1,0 +1,90 @@
+*{
+    font-family: "Roboto", sans-serif;
+}
+body {
+    margin: 0 !important;
+}
+
+.main {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background: linear-gradient(180deg, rgba(2,0,36,1) 77%, rgba(1,22,97,1) 100%);
+}
+
+.login-box {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    width: 360px;
+
+    border: 2px solid #767b84;
+    padding: 24px 24px 0 24px;
+    border-radius: 14px;
+
+    background: linear-gradient(0deg, rgba(2,0,36,1) 65%, rgba(1,22,97,1) 100%);
+}
+
+.img-container {
+    padding: 24px;
+}
+
+h4 {
+    margin-top: 12px;
+    margin-bottom: unset;
+    text-align: center;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.input {
+    margin: 12px 0 !important;
+}
+
+.submit {
+    margin-top: 12px !important;
+    font-weight: bold;
+    span{
+        font-weight: bold;
+        padding-right: 6px;
+    }
+}
+.register-label {
+    margin: 24px 0;
+    text-align: center;
+    a {
+        color: #90caf9;
+    }
+
+    a:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
+
+.error-container {
+    display: flex;
+    justify-content: center;
+    height: 48px;
+}
+
+.error-msg {
+    text-align: center;
+    margin: 12px 0;
+    display: block;
+    color: red;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: local('Roboto'), url('../fonts/Roboto-Regular.ttf') format('truetype');
+}
+/***********************************************************************/
+.login-icons{
+    margin-top:12px;
+    margin-bottom: 12px;
+}

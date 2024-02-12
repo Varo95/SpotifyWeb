@@ -2,37 +2,53 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="es" xmlns:h="jakarta.faces.html" xmlns:f="jakarta.faces.core" xmlns:p="http://primefaces.org/ui">
 
-<f:view contentType="text/html">
-    <h:head>
-        <title>${sms.get('generic.title')}</title>
-        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-        <link href="#{resource['images/icon.png']}" rel="shortcut icon"/>
-        <h:outputStylesheet library="css" name="main.css"/>
-    </h:head>
-    <h:body>
-        <p:panelGrid columns="1">
-            <f:facet name="header">
-                <p:graphicImage value="#{resource['images/icon.png']}" />
-            </f:facet>
-        </p:panelGrid>
-        <p:panel style="max-width: 400px; margin: 0 auto" id="panelLogin" header="${sms.get('login.title')}">
-            <div id="mainDiv" class="ui-fluid center">
-                <h:form prependId="false">
-                    <p:panelGrid columns="1" layout="grid">
-                        <p:outputLabel value="${sms.get('login.error')}" rendered="${!empty param['error']}"/>
-                    </p:panelGrid>
-                    <p:focus />
-                    <p:panelGrid columns="2" layout="grid">
-                        <h:outputText value="${sms.get('generic.username')}" />
-                        <p:inputText id="name" name="name"/>
-                        <h:outputText value="${sms.get('generic.password')}" />
-                        <p:password id="passwd" name="passwd"/>
-                    </p:panelGrid>
-                    <p:commandButton id="submit" value="${sms.get('login.submit')}" ajax="false" icon="pi pi-sign-in" iconPos="right"/>
-                </h:form>
-                <span>${sms.get('login.notregistered')} <p:linkButton id="register" value="${sms.get('register.submit')}" ajax="false" href="register.faces"/></span>
+    <f:view contentType="text/html">
+        <h:head>
+            <title>${sms.get('generic.title')}</title>
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <link href="#{resource['images/icon.png']}" rel="shortcut icon"/>
+            <h:outputStylesheet library="css" name="login.css"/>
+        </h:head>
+        <h:body>
+            <div class="ui-fluid center main">
+                <div class="login-box">
+                    <div class="img-container">
+                        <p:graphicImage value="#{resource['images/icon.png']}" />
+                    </div>
+                    <h:form class="w-100" prependId="false">
+                        <div class="form-inputs">
+                            <h4 style="margin-top: 24px">${sms.get('generic.username')}</h4>
+                            <div class="ui-inputgroup">
+                                <div class="ui-inputgroup-addon login-icons"><i class="pi pi-user"/></div>
+                                <p:inputText title="a" id="name" class="input"/>
+                            </div>
+                            <h4>${sms.get('generic.password')}</h4>
+                            <div class="ui-inputgroup">
+                                <div class="ui-inputgroup-addon login-icons"><i class="pi pi-lock"/></div>
+                                <p:password title="a" id="passwd" class="input"/>
+                            </div>
+                        </div>
+                        <div class="error-container">
+                            <p:outputLabel
+                                class="error-msg"
+                                value="${sms.get('login.error')}"
+                                rendered="${!empty param['error']}"
+                            />
+                        </div>
+                        <p:commandButton
+                            id="submit"
+                            class="submit"
+                            value="${sms.get('login.submit')}"
+                            ajax="false"
+                            icon="pi pi-sign-in"
+                            iconPos="right"
+                        />
+                        <p class="register-label">
+                            ${sms.get('login.notRegistered')} <a href="register.faces">${sms.get('register.submit')}</a>
+                        </p>
+                    </h:form>
+                </div>
             </div>
-        </p:panel>
-    </h:body>
-</f:view>
+        </h:body>
+    </f:view>
 </html>
