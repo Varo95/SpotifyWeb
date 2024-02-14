@@ -1,5 +1,6 @@
 package com.alvaro.bean;
 
+import com.alvaro.model.orm.Song;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -12,15 +13,16 @@ import java.io.Serializable;
 @Component("musicPlayerBean")
 @Scope("view")
 @Slf4j
+@Getter
 public class MusicPlayerBean implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
-    @Setter @Getter
+    @Setter
     private float volume;
-    @Setter @Getter
+    @Setter
     private float playTime;
-    @Getter
     private boolean replay;
+    private Song currentSong;
 
     public void setReplay() {
         this.replay = !this.replay;

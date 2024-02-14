@@ -42,7 +42,7 @@ public class SPAuthority implements GrantedAuthority, Serializable {
         return this.authority;
     }
 
-    public String toToGUI(){
+    public String toGUI(){
         return StringUtils.capitalize(this.authority.replace("ROLE_","").toLowerCase());
     }
 

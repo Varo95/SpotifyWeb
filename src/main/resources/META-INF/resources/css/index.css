@@ -5,3 +5,23 @@
         border-radius: 14px;
     }
 }
+.main-account{
+    display: flex;
+    margin: 12px;
+    float: right;
+    span{
+        button{
+            background-color: transparent;
+            border: none;
+            color: white;
+        }
+        button:hover{
+            background-color: transparent;
+            border: none;
+            color: white;
+        }
+    }
+}
+.music-player{
+    display: flex;
+}

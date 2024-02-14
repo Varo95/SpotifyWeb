@@ -5,26 +5,32 @@
                 xmlns:f="jakarta.faces.core"
                 xmlns:pe="http://primefaces.org/ui/extensions"
                 xmlns:sec="https://joinfaces.org/security">
-    <p:panelGrid columns="3" columnClasses="ui-g-2 ui-md-1,ui-g-6 ui-md-6,ui-g-4 ui-md-1">
-        <p:graphicImage style="height: 50px" styleClass="logoButton" value="#{resource['images/disc_default.png']}" />
-        <div>
-            <div>
-                <p:commandButton form="hiddenForm" type="button" icon="pi pi-chevron-left" styleClass="rounded-button" />
-                <p:commandButton form="hiddenForm" type="button" icon="pi pi-play" styleClass="rounded-button" />
-                <p:commandButton form="hiddenForm" type="button" icon="pi pi-chevron-right" styleClass="rounded-button" />
+    <h:form id="player-form" class="main-player">
+        <div class="song-data">
+            <p:graphicImage class="album-image" value="#{resource['images/disc_default.png']}" />
+            <h:outputText value="#{musicPlayerBean.currentSong.name}" />
+            <h:outputText value="#{musicPlayerBean.currentSong.disk.artist.name}" />
+        </div>
+        <div class="control-panel">
+            <div class="control-buttons">
+                <p:commandButton type="button" icon="pi pi-chevron-left" styleClass="rounded-button" />
+                <p:commandButton type="button" icon="pi pi-play" styleClass="rounded-button" />
+                <p:commandButton type="button" icon="pi pi-chevron-right" styleClass="rounded-button" />
                 <p:badge id="repeat" severity="info" visible="#{musicPlayerBean.replay}">
-                    <p:commandButton form="hiddenForm" icon="pi pi-replay" update="repeat" styleClass="rounded-button" action="#{musicPlayerBean.setReplay()}" />
+                    <p:commandButton icon="pi pi-replay" update="repeat" styleClass="rounded-button" action="#{musicPlayerBean.setReplay()}" />
                 </p:badge>
             </div>
-            <h:outputText id="timeLine" value="Set playTime to %#{musicPlayerBean.playTime}"/>
-            <p:slider style="width: 200px" for="timeLineInput" range="false" display="timeLine" displayTemplate="Set playTime to %{value}"/>
+            <div class="timeline-slider">
+                <h:outputText id="timeLine" value="#{musicPlayerBean.playTime}"/>
+                <p:slider style="width: 400px" for="timeLineInput" range="false" display="timeLine" displayTemplate="%{value}"/>
+                <h:outputText id="duration" value="#{musicPlayerBean.currentSong.duration}"/>
+            </div>
         </div>
-        <div>
-            <h:outputText id="volume" value="Set volume to %#{musicPlayerBean.volume}"/>
-            <p:slider style="width: 200px" for="volumeInput" range="false" display="volume" displayTemplate="Set volume to %{value}"/>
+        <div class="volume-slider">
+            <p:commandButton type="button" icon="pi pi-volume-off" styleClass="rounded-button ui-button-flat" />
+            <p:slider style="width: 100px" for="volumeInput" range="false" displayTemplate="Set volume to %{value}"/>
         </div>
-    </p:panelGrid>
-    <h:form id="hiddenForm" style="display: none"/>
-    <h:inputHidden style="display: none" id="timeLineInput" value="#{musicPlayerBean.playTime}"/>
+    </h:form>
+    <h:inputHidden id="timeLineInput" value="#{musicPlayerBean.playTime}"/>
     <h:inputHidden id="volumeInput" value="#{musicPlayerBean.volume}"/>
 </ui:composition>

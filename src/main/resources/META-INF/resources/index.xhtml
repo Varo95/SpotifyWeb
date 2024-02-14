@@ -6,11 +6,23 @@
             xmlns:p="http://primefaces.org/ui"
             xmlns:h="jakarta.faces.html"
             xmlns:f="jakarta.faces.core"
-            xmlns:pe="http://primefaces.org/ui/extensions"
             xmlns:sec="https://joinfaces.org/security"
-            template="/template.xhtml">
+            template="/menu.xhtml">
         <ui:define name="content" >
-            <h:form class="content-form">
+            <h:form>
+                <div class="main-account">
+                    <p:avatar styleClass="mr-2" shape="circle">
+                        <p:graphicImage id="profile-photo" value="#{sessionTool.profilePhoto}"/>
+                    </p:avatar>
+                    <p:menuButton value="#{sessionTool.userName}" iconPos="end">
+                        <p:menuitem value="Cuenta" onclick="PF('userDlg').show()"/>
+                        <p:menuitem value="Cerrar sesión" url="/logout"/>
+                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                            <p:separator/>
+                            <p:menuitem value="Administrar"/>
+                        </sec:authorize>
+                    </p:menuButton>
+                </div>
                 <p:tabView id="tabView">
                     <p:tab title="#{sms.get('main.allArtists')}" >
                         <p:dataTable id="tableStateDT" var="artist" value="#{mainBean.allArtists}"
@@ -34,25 +46,15 @@
                                 <span class="flag flag-#{artist.nationality}"/>
                                 <h:outputText style="vertical-align: middle; margin-left: .5rem" value="#{artist.nationality}"/>
                             </p:column>
-
-
                             <f:facet name="paginatorTopLeft">
                                 <p:commandButton value="Clear table state" action="#{mainBean.clearMultiViewState}"
                                                  update="@form"/>
                             </f:facet>
                         </p:dataTable>
                     </p:tab>
-                    <p:tab title="#{sms.get('main.allPlayLists')}" >
-
+                        <p:tab title="#{sms.get('main.allPlayLists')}" >
                     </p:tab>
                 </p:tabView>
-                <p:menuButton icon="pi pi-user">
-                    <p:menuitem value="Cuenta"/>
-                    <p:menuitem value="Cerrar sesión"/>
-                    <sec:authorize access="hasRole('ROLE_ADMIN')">
-                        <p:menuitem value="Administrar"/>
-                    </sec:authorize>
-                </p:menuButton>
             </h:form>
         </ui:define>
     </ui:composition>

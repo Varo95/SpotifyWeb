@@ -7,6 +7,7 @@ import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.primefaces.event.SelectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -27,6 +28,8 @@ public class RegisterBean implements Serializable {
     private SPAuthority selectedAuthority;
     @Getter
     private final List<SPAuthority> authorities;
+    @Getter
+    private boolean disableEmail = false;
     private final transient UserService userService;
     @Autowired
     public RegisterBean(final UserService userService){
@@ -41,7 +44,12 @@ public class RegisterBean implements Serializable {
 
     public String register(){
         final User saved = this.userService.register(this.user, this.selectedAuthority);
-        return saved != null ? "index.faces" : "register.faces?error=true";
+        return saved != null ? "login.faces" : "register.faces?error=true";
+    }
+
+    public void selectionChanged(final SelectEvent<SPAuthority> event){
+        this.user.setAuthorities(List.of(event.getObject()));
+        this.disableEmail = "ROLE_ADMIN".equals(event.getObject().getAuthority());
     }
 
 }

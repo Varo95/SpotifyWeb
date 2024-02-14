@@ -34,9 +34,15 @@
             <pe:layoutPane position="center">
                 <ui:insert name="content" />
             </pe:layoutPane>
-            <pe:layoutPane position="south">
+            <pe:layoutPane styleClassContent="music-player" position="south">
                 <ui:include src="musicplayer.xhtml"/>
             </pe:layoutPane>
+            <p:dialog header="#{sms.get('generic.username')}"
+                      widgetVar="userDlg" resizable="false"
+                      id="userDlg" modal="true" showEffect="fade" hideEffect="fade"
+                      width="auto" closable="true">
+                <ui:include src="userdialog.xhtml"/>
+            </p:dialog>
         </pe:layout>
     </h:body>
 </html>

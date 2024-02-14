@@ -86,6 +86,8 @@ h4 {
 }
 /***********************************************************************/
 .login-icons{
-    margin-top:12px;
-    margin-bottom: 12px;
+    margin: 12px 0 12px auto;
+    i{
+        padding-top: 2px;
+    }
 }

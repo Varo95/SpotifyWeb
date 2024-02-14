@@ -6,23 +6,50 @@
   background-color: #1f2d40;
 }
 
-.CodeMirror { 
-  text-align: left; 
-  height: auto !important;
+.main-player{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 24px;
 }
 
-.center {
-  text-align: center;
+.music-player-grid {
+  /* Ajusta el estilo de la cuadrícula del reproductor de música aquí */
 }
 
-.logo {
-  background-image: url("#{resource['images/icon.png']}") !important;
-  width: 26px;
-  height: 26px;
-  background-position: 0 0;
+.album-image {
+  /* Ajusta el estilo de la imagen del álbum aquí */
+  height: 50px;
 }
-.logoButton{
-  background: transparent !important;
-  border: none !important;
-  margin: 0;
+
+.control-panel {
+  /* Ajusta el estilo del panel de control aquí */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.control-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  column-gap: 24px;
+}
+
+.timeline-slider {
+  /* Ajusta el estilo del deslizador de la línea de tiempo aquí */
+  display: flex;
+  align-items: center;
+  column-gap: 24px;
+}
+
+.volume-slider {
+  /* Ajusta el estilo del deslizador de volumen aquí */
+  display: flex;
+  align-items: center;
+  column-gap: 24px;
+}
+.song-data{
+    /* Ajusta el estilo de los datos de la canción aquí */
+
 }

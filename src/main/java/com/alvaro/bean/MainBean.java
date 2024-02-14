@@ -20,22 +20,20 @@ import java.util.List;
 @Component("mainBean")
 @Scope("view")
 @Slf4j
+@Getter
 public class MainBean implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
-    @Getter
     private final List<Artist> allArtists;
-    @Getter
     private final List<PlayList> allPlayLists;
-    @Getter @Setter
+    @Setter
     private List<Artist> filteredArtists;
-    @Getter @Setter
+    @Setter
     private List<PlayList> filteredPlayLists;
-    @Getter @Setter
+    @Setter
     private Artist selectedArtist;
-    @Getter @Setter
+    @Setter
     private PlayList selectedPlayList;
-
     @Autowired
     public MainBean(final MainService mainService) {
         this.allArtists = mainService.getAllArtists();

@@ -53,8 +53,6 @@ public class UserService implements UserDetailsService, UserDetailsPasswordServi
         user.setPasswd(this.passwordEncoder.encode(user.getPasswd()));
         if (authority == null) {
             authority = this.userRepository.findAll().isEmpty() ? this.spAuthorityRepository.findByAuthority("ROLE_ADMIN").orElseThrow() : this.spAuthorityRepository.findByAuthority("ROLE_USER").orElseThrow();
-        } else {
-            authority = this.spAuthorityRepository.findById(authority.getId()).orElseThrow();
         }
         user.setAuthorities(List.of(authority));
         return this.userRepository.save(user);

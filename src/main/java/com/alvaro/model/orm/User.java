@@ -35,6 +35,8 @@ public class User implements UserDetails, Serializable {
     private String name;
     private String passwd;
     private String photoURL;
+    private String email;
+    private String verificationCode;
     @JoinTable(name = "subscriptions",
             joinColumns = @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "playlist_id", nullable = false, referencedColumnName = "id"))
